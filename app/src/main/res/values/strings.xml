@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">GitHubUsers</string>
+    <string name="msg_addUser_in_favorites">User add in favorites</string>
+</resources>
