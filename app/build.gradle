@@ -35,6 +35,10 @@ dependencies {
 
     implementation 'com.squareup.okhttp3:logging-interceptor:3.10.0'
 
+    //SupportDesign
+    //noinspection GradleCompatible
+    implementation 'com.android.support:design:27.1.1'
+
     //CircleImageView
     implementation 'de.hdodenhof:circleimageview:2.2.0'
 

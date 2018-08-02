@@ -23,6 +23,8 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerView userRecyclerView;
     private UserItemAdapter userItemAdapter;
 
+    private final static String EXTRA_USER = "INFO_USER";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
                     userItemAdapter = new UserItemAdapter(users);
                     userItemAdapter.setOnUsersItemListener(user -> {
                         Intent intent = new Intent(MainActivity.this, InfoUserActivity.class);
-                        intent.putExtra()
+                        intent.putExtra(EXTRA_USER, user);
                         startActivity(intent);
                     });
                     userRecyclerView.setAdapter(userItemAdapter);
