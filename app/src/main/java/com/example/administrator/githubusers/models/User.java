@@ -1,12 +1,16 @@
 package com.example.administrator.githubusers.models;
 
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.PrimaryKey;
 import android.os.Parcel;
 import android.os.Parcelable;
 
 import com.google.gson.annotations.SerializedName;
 
+@Entity()
 public class User implements Parcelable {
 
+    @PrimaryKey
     @SerializedName("id")
     private int id;
     @SerializedName("login")
@@ -24,10 +28,16 @@ public class User implements Parcelable {
     @SerializedName("following")
     private String following;
 
-//    public User(String login, int id) {
-//        this.login = login;
-//        this.id = id;
-//    }
+    public User(int id, String login, String avatarUrl, String location, String name, String publicRepos, String followers, String following) {
+        this.id = id;
+        this.login = login;
+        this.avatarUrl = avatarUrl;
+        this.location = location;
+        this.name = name;
+        this.publicRepos = publicRepos;
+        this.followers = followers;
+        this.following = following;
+    }
 
     protected User(Parcel in) {
         id = in.readInt();
@@ -52,34 +62,6 @@ public class User implements Parcelable {
         }
     };
 
-    public String getAvatarUrl() {
-        return avatarUrl;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public String getLogin() {
-        return login;
-    }
-
-    public String getLocation() {
-        return location;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public String getFollowers() {
-        return followers;
-    }
-
-    public String getFollowing() {
-        return following;
-    }
-
     @Override
     public int describeContents() {
         return 0;
@@ -95,5 +77,37 @@ public class User implements Parcelable {
         parcel.writeString(publicRepos);
         parcel.writeString(followers);
         parcel.writeString(following);
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public String getLogin() {
+        return login;
+    }
+
+    public String getAvatarUrl() {
+        return avatarUrl;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getPublicRepos() {
+        return publicRepos;
+    }
+
+    public String getFollowers() {
+        return followers;
+    }
+
+    public String getFollowing() {
+        return following;
     }
 }

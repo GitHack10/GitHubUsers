@@ -1,5 +1,6 @@
 package com.example.administrator.githubusers.adapters;
 
+import android.os.AsyncTask;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -7,12 +8,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.example.administrator.githubusers.App;
 import com.example.administrator.githubusers.R;
 import com.example.administrator.githubusers.models.User;
 import com.squareup.picasso.Picasso;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -20,22 +22,19 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class UserItemAdapter extends RecyclerView.Adapter<UserItemAdapter.ItemViewHolder>  {
 
     private List<User> users;
-    private List<Integer> idAddUsers = new ArrayList<>();
-
+    private List<Integer> idFavoritesUsers;
     private OnUsersItemListener onUsersItemListener;
 
-    public UserItemAdapter(List<User> users) {
+    public UserItemAdapter(List<User> users, List<Integer> idFavoirtesUsers) {
         this.users = users;
+        this.idFavoritesUsers = idFavoirtesUsers;
     }
 
     @NonNull
     @Override
-    public ItemViewHolder onCreateViewHolder(
-            @NonNull ViewGroup parent, int viewType) {
-        View itemView = LayoutInflater.from(
-                parent.getContext()).
-                inflate(R.layout.item_user,
-                parent, false);
+    public ItemViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View itemView = LayoutInflater.from(parent.getContext()).
+                inflate(R.layout.item_user, parent, false);
 
         return new ItemViewHolder(itemView);
     }
@@ -45,6 +44,11 @@ public class UserItemAdapter extends RecyclerView.Adapter<UserItemAdapter.ItemVi
         holder.setData(users.get(position));
     }
 
+//    @Override
+//    public long getItemId(int position) {
+//        users.get(position).getId();
+//    }
+
     @Override
     public int getItemCount() {
         return users.size();
@@ -52,6 +56,14 @@ public class UserItemAdapter extends RecyclerView.Adapter<UserItemAdapter.ItemVi
 
     public void setOnUsersItemListener(OnUsersItemListener onUsersItemListener) {
         this.onUsersItemListener = onUsersItemListener;
+    }
+
+    public void setIdFavoritesUsers(List<Integer> idFavoritesUsers) {
+        this.idFavoritesUsers = idFavoritesUsers;
+    }
+
+    public interface OnUsersItemListener {
+        void onUserItemClick(User user);
     }
 
     class ItemViewHolder extends RecyclerView.ViewHolder {
@@ -81,7 +93,7 @@ public class UserItemAdapter extends RecyclerView.Adapter<UserItemAdapter.ItemVi
             userNameTextView.setText(userData.getLogin());
             userIdTextView.setText(String.valueOf(userData.getId()));
 
-            for (int i : idAddUsers) {
+            for (int i : idFavoritesUsers) {
                 if (i == userData.getId()) {
                     addUserImageView.setImageResource(R.drawable.ic_check_user);
                     break;
@@ -91,9 +103,10 @@ public class UserItemAdapter extends RecyclerView.Adapter<UserItemAdapter.ItemVi
             }
 
             addUserImageView.setOnClickListener(view -> {
-                idAddUsers.add(userData.getId());
+                new AddUser(userData).execute();
+                idFavoritesUsers.add(userData.getId());
 
-                for (int i : idAddUsers) {
+                for (int i : idFavoritesUsers) {
                     if (i == userData.getId()) {
                         addUserImageView.setImageResource(R.drawable.ic_check_user);
                         break;
@@ -101,6 +114,9 @@ public class UserItemAdapter extends RecyclerView.Adapter<UserItemAdapter.ItemVi
                         addUserImageView.setImageResource(R.drawable.ic_add_user);
                     }
                 }
+
+                Toast.makeText(itemView.getContext(), itemView.getContext().getResources()
+                        .getString(R.string.msg_addUser_in_favorites), Toast.LENGTH_SHORT).show();
             });
 
             itemView.setOnClickListener(view -> {
@@ -109,7 +125,18 @@ public class UserItemAdapter extends RecyclerView.Adapter<UserItemAdapter.ItemVi
         }
     }
 
-    public interface OnUsersItemListener {
-        void onUserItemClick(User user);
+    class AddUser extends AsyncTask<Void, Void, Void>{
+
+        private User favoritesUser;
+
+        AddUser(User favoritesUser) {
+            this.favoritesUser = favoritesUser;
+        }
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+            App.getAppDatabase().userDao().insert(favoritesUser);
+            return null;
+        }
     }
 }

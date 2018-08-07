@@ -1,4 +1,4 @@
-package com.example.administrator.githubusers;
+package com.example.administrator.githubusers.adapters;
 
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -7,7 +7,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.example.administrator.githubusers.R;
 import com.example.administrator.githubusers.models.User;
 import com.squareup.picasso.Picasso;
 
@@ -15,9 +17,10 @@ import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class FavoriteUserItemAdapter extends RecyclerView.Adapter<FavoriteUserItemAdapter.FavoritesUseresItemViewHolder> {
+public class FavoriteUserItemAdapter extends RecyclerView.Adapter<FavoriteUserItemAdapter.FavoritesUsersItemViewHolder> {
 
     private List<User> favoritesUsers;
+    private OnRemoveItemListener onRemoveItemListener;
 
     public FavoriteUserItemAdapter(List<User> favoritesUsers) {
         this.favoritesUsers = favoritesUsers;
@@ -25,14 +28,14 @@ public class FavoriteUserItemAdapter extends RecyclerView.Adapter<FavoriteUserIt
 
     @NonNull
     @Override
-    public FavoritesUseresItemViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public FavoritesUsersItemViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext()).
                 inflate(R.layout.item_favorite_user, parent, false);
-        return new FavoritesUseresItemViewHolder(itemView);
+        return new FavoritesUsersItemViewHolder(itemView);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull FavoritesUseresItemViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull FavoritesUsersItemViewHolder holder, int position) {
         holder.setFavoritesUsersData(favoritesUsers.get(position));
     }
 
@@ -41,14 +44,22 @@ public class FavoriteUserItemAdapter extends RecyclerView.Adapter<FavoriteUserIt
         return favoritesUsers.size();
     }
 
-    class FavoritesUseresItemViewHolder extends RecyclerView.ViewHolder {
+    public void setOnRemoveItemListener(OnRemoveItemListener onRemoveItemListener) {
+        this.onRemoveItemListener = onRemoveItemListener;
+    }
+
+    public interface OnRemoveItemListener {
+        void onRemoveItemClick(User favoriteUser);
+    }
+
+    class FavoritesUsersItemViewHolder extends RecyclerView.ViewHolder {
 
         private TextView loginTextView;
         private TextView idTextView;
         private CircleImageView avatarCircleImageView;
         private ImageView removeImageView;
 
-        FavoritesUseresItemViewHolder(View itemView) {
+        FavoritesUsersItemViewHolder(View itemView) {
             super(itemView);
 
             loginTextView = itemView.findViewById(R.id.TextView_itemFavoriteUser_userName);
@@ -57,10 +68,15 @@ public class FavoriteUserItemAdapter extends RecyclerView.Adapter<FavoriteUserIt
             removeImageView = itemView.findViewById(R.id.ImageView_itemFavoriteUser_removeUser);
         }
 
-        public void setFavoritesUsersData(User favoriteUserData) {
+        void setFavoritesUsersData(User favoriteUserData) {
             Picasso.get().load(favoriteUserData.getAvatarUrl()).into(avatarCircleImageView);
             loginTextView.setText(favoriteUserData.getLogin());
-            idTextView.setText(favoriteUserData.getId());
+            idTextView.setText(String.valueOf(favoriteUserData.getId()));
+            removeImageView.setOnClickListener(view -> {
+                onRemoveItemListener.onRemoveItemClick(favoriteUserData);
+                Toast.makeText(itemView.getContext(), itemView.getContext().getResources()
+                        .getString(R.string.msg_removeUser_in_favorites), Toast.LENGTH_SHORT).show();
+            });
         }
     }
 }

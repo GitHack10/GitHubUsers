@@ -32,7 +32,7 @@
                 android:textSize="16sp" />
 
             <TextView
-                android:id="@+id/text_user_info_login"
+                android:id="@+id/TextView_user_info_login"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@android:color/black"
@@ -55,11 +55,11 @@
                 android:textSize="16sp" />
 
             <TextView
-                android:id="@+id/text_user_info_name"
+                android:id="@+id/TextView_user_info_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@android:color/black"
-                tools:text="Логин" />
+                tools:text="Имя" />
 
         </LinearLayout>
 
@@ -78,11 +78,11 @@
                 android:textSize="16sp" />
 
             <TextView
-                android:id="@+id/text_user_info_location"
+                android:id="@+id/TextView_user_info_location"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@android:color/black"
-                tools:text="Логин" />
+                tools:text="Место Нахождения" />
 
         </LinearLayout>
 
@@ -101,11 +101,11 @@
                 android:textSize="16sp" />
 
             <TextView
-                android:id="@+id/text_user_info_public_repos"
+                android:id="@+id/TextView_user_info_public_repos"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@android:color/black"
-                tools:text="Логин" />
+                tools:text="Публичные репозитоии" />
 
         </LinearLayout>
 
@@ -124,11 +124,11 @@
                 android:textSize="16sp" />
 
             <TextView
-                android:id="@+id/text_user_info_followers"
+                android:id="@+id/TextView_user_info_followers"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@android:color/black"
-                tools:text="Логин" />
+                tools:text="Наблюдатели" />
 
         </LinearLayout>
 
@@ -146,11 +146,11 @@
                 android:textSize="16sp" />
 
             <TextView
-                android:id="@+id/text_user_info_following"
+                android:id="@+id/TextView_user_info_following"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@android:color/black"
-                tools:text="Логин" />
+                tools:text="Наблюдаемые" />
 
         </LinearLayout>
     </LinearLayout>

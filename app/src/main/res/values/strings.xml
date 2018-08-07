@@ -5,7 +5,8 @@
     <string name="user_info_location">Location: </string>
     <string name="user_info_followers">Followers: </string>
     <string name="user_info_following">Following: </string>
-    <string name="msg_addUser_in_favorites">User add in favorites</string>
+    <string name="msg_addUser_in_favorites">User add in favorites!</string>
+    <string name="msg_removeUser_in_favorites">User deleted from favorites!</string>
     <string name="msg_no_network">No internet connection!</string>
     <string name="try_it_again">Try it again!</string>
 

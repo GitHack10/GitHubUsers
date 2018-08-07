@@ -19,7 +19,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.InfoUserActivity"></activity>
+        <activity android:name=".ui.InfoUserActivity" />
+        <activity android:name=".ui.FavoritesUsersActivity"></activity>
     </application>
 
 </manifest>

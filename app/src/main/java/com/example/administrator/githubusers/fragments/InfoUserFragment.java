@@ -29,6 +29,7 @@ public class InfoUserFragment extends Fragment {
     private TextView loginTextView;
     private TextView nameTextView;
     private TextView locationTextView;
+    private TextView publicRepos;
     private TextView followersTextView;
     private TextView followingTextView;
 
@@ -76,11 +77,12 @@ public class InfoUserFragment extends Fragment {
 //        tryItAgainText = view.findViewById(R.id.Text_info_user_try_again);
         avatarImageView = view.findViewById(R.id.ImageView_user_info_avatar);
 
-        loginTextView = view.findViewById(R.id.text_user_info_login);
-        nameTextView = view.findViewById(R.id.text_user_info_name);
-        locationTextView = view.findViewById(R.id.text_user_info_location);
-        followersTextView = view.findViewById(R.id.text_user_info_followers);
-        followingTextView = view.findViewById(R.id.text_user_info_following);
+        loginTextView = view.findViewById(R.id.TextView_user_info_login);
+        nameTextView = view.findViewById(R.id.TextView_user_info_name);
+        locationTextView = view.findViewById(R.id.TextView_user_info_location);
+        publicRepos = view.findViewById(R.id.TextView_user_info_public_repos);
+        followersTextView = view.findViewById(R.id.TextView_user_info_followers);
+        followingTextView = view.findViewById(R.id.TextView_user_info_following);
     }
 
     private void setData() {
@@ -88,6 +90,7 @@ public class InfoUserFragment extends Fragment {
         loginTextView.setText(user.getLogin());
         nameTextView.setText(user.getName());
         locationTextView.setText(user.getLocation());
+        publicRepos.setText(user.getPublicRepos());
         followersTextView.setText(user.getFollowers());
         followingTextView.setText(user.getFollowing());
     }

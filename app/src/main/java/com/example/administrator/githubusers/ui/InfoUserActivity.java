@@ -1,8 +1,8 @@
 package com.example.administrator.githubusers.ui;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AppCompatActivity;
 
 import com.example.administrator.githubusers.R;
@@ -13,12 +13,17 @@ public class InfoUserActivity extends AppCompatActivity {
 
     private final static String EXTRA_USER = "INFO_USER";
 
+    public static Intent getStartIntent(Context context, User user) {
+        Intent intent = new Intent(context, InfoUserActivity.class);
+        intent.putExtra(EXTRA_USER, user);
+        return intent;
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_info_user);
 
-//        showFragment(R.id.FrameLayout_infoUser_container, new InfoUserFragment(), this);
         showInfoUserFragment(getIntent().getParcelableExtra(EXTRA_USER));
     }
 
@@ -30,10 +35,5 @@ public class InfoUserActivity extends AppCompatActivity {
 
         getSupportFragmentManager().beginTransaction().
                 replace(R.id.FrameLayout_infoUser_container, infoUserFragment).commit();
-    }
-    public void showFragment(int container, Fragment fragment,
-                                         FragmentActivity fragmentActivity) {
-        fragmentActivity.getSupportFragmentManager().beginTransaction()
-                .add(container, fragment).commit();
     }
 }
