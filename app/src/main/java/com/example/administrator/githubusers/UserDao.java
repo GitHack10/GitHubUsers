@@ -16,9 +16,6 @@ public interface UserDao {
     @Query("SELECT * FROM User")
     List<User> getUsers();
 
-    @Query("SELECT * FROM User WHERE id = :id")
-    User getUser(int id);
-
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     void insert(User favoriteUser);
 

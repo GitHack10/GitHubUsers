@@ -33,11 +33,6 @@ public class InfoUserFragment extends Fragment {
     private TextView followersTextView;
     private TextView followingTextView;
 
-//    private ProgressBar progressBar;
-//
-//    private LinearLayout noNetworkContainer;
-//    private TextView tryItAgainText;
-
     private final static String EXTRA_USER = "INFO_USER";
 
     @Override
@@ -72,9 +67,6 @@ public class InfoUserFragment extends Fragment {
     }
 
     private void inItViews(@NonNull View view) {
-//        progressBar = view.findViewById(R.id.progress_user_info);
-//        noNetworkContainer = view.findViewById(R.id.Liner_info_user_container);
-//        tryItAgainText = view.findViewById(R.id.Text_info_user_try_again);
         avatarImageView = view.findViewById(R.id.ImageView_user_info_avatar);
 
         loginTextView = view.findViewById(R.id.TextView_user_info_login);
@@ -94,34 +86,4 @@ public class InfoUserFragment extends Fragment {
         followersTextView.setText(user.getFollowers());
         followingTextView.setText(user.getFollowing());
     }
-
-//    // ПОВТОР ЗАПРОСА
-//    private void tryItAgainCallUserRequest() {
-//        noNetworkContainer.setVisibility(View.GONE);
-//        progressBar.setVisibility(View.VISIBLE);
-//        new Thread(() -> {
-//            try {
-//                Thread.sleep(1000);
-//                callUserRequest();
-//            } catch (InterruptedException el) {
-//                el.printStackTrace();
-//            }
-//        }).start();
-//    }
-
-// ЗАПРОС
-//    private void callUserRequest() {
-//        Call<User> usersCall = App.getInstance().getGithubService().getUser(user.getLogin());
-//        usersCall.enqueue(new Callback<User>() {
-//            @Override
-//            public void onResponse(@NonNull Call<User> call, Response<User> response) {
-//
-//            }
-//
-//            @Override
-//            public void onFailure(@NonNull Call<User> call, Throwable t) {
-//                noNetworkContainer.setVisibility(View.VISIBLE);
-//            }
-//        });
-//    }
 }

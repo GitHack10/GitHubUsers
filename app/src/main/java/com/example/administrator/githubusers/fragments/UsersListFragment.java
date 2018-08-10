@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,6 +19,7 @@ import com.example.administrator.githubusers.R;
 import com.example.administrator.githubusers.adapters.UserItemAdapter;
 import com.example.administrator.githubusers.models.User;
 import com.example.administrator.githubusers.ui.InfoUserActivity;
+import com.example.administrator.githubusers.ui.MainActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -53,41 +55,18 @@ public class UsersListFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         userRecyclerView = view.findViewById(R.id.RecyclerView_main_user);
+        userRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         new GetFavoritesUsersId().execute();
-
-//        usersCall = App.getGithubService().getUsers();
-//        usersCall.enqueue(new Callback<List<User>>() {
-//            @Override
-//            public void onResponse(Call<List<User>> call, Response<List<User>> response) {
-//                if (response.isSuccessful()) {
-//                    users = response.body();
-//                    userItemAdapter = new UserItemAdapter(users, idFavoirtesUsers);
-//                    userItemAdapter.setOnUsersItemListener(user -> {
-//                        Intent intent = new Intent(getActivity(), InfoUserActivity.class);
-//                        intent.putExtra(EXTRA_USER, user);
-//                        startActivity(intent);
-//                    });
-//                    userRecyclerView.setAdapter(userItemAdapter);
-//                }
-//            }
-//
-//            @Override
-//            public void onFailure(Call<List<User>> call, Throwable t) {
-//                if (!usersCall.isCanceled()) {
-//                    //
-//                }
-//            }
-//        });
     }
 
-    private void callUsersRequest(List<Integer> idFavoirtesUsers) {
+    private void callUsersRequest(List<Integer> idFavoritesUsers) {
         Call<List<User>> userCall = App.getGithubService().getUsers();
         userCall.enqueue(new Callback<List<User>>() {
             @Override
             public void onResponse(@NonNull Call<List<User>> call, @NonNull Response<List<User>> response) {
                 if (response.isSuccessful()) {
                     users = response.body();
-                    userItemAdapter = new UserItemAdapter(users, idFavoirtesUsers);
+                    userItemAdapter = new UserItemAdapter(users, idFavoritesUsers);
                     userItemAdapter.setOnUsersItemListener(user ->
                             startActivityForResult(InfoUserActivity.
                                     getStartIntent(getContext(), user), REQUEST_CODE_USER_INFO));
@@ -104,7 +83,7 @@ public class UsersListFragment extends Fragment {
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (resultCode == RESULT_OK && requestCode == REQUEST_CODE_USER_INFO) {
+        if (resultCode == RESULT_OK && requestCode == MainActivity.REQUEST_CODE_FAVORITES) {
             new GetFavoritesIdForExitActivityUserAsyncTask().execute();
         }
     }
@@ -150,6 +129,7 @@ public class UsersListFragment extends Fragment {
         @Override
         protected void onPostExecute(List<Integer> integers) {
             userItemAdapter.setIdFavoritesUsers(integers);
+            userItemAdapter.notifyDataSetChanged();
         }
     }
 }

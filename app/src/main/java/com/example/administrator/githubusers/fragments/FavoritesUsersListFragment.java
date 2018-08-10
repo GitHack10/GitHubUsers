@@ -27,8 +27,6 @@ public class FavoritesUsersListFragment extends Fragment {
 
     private RecyclerView favoritesUsersRecyclerView;
 
-    private static final int REQUEST_CODE_USER_INFO = 1;
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -41,13 +39,6 @@ public class FavoritesUsersListFragment extends Fragment {
         favoritesUsersRecyclerView = view.findViewById(R.id.RecyclerView_fragmentFavoritesUsers_user);
         new ShowFavoritesUsers().execute();
     }
-
-//    @Override
-//    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-//        if (resultCode == RESULT_OK && requestCode == REQUEST_CODE_USER_INFO) {
-//            new ShowFavoritesUsers().execute();
-//        }
-//    }
 
     @SuppressLint("StaticFieldLeak")
     class ShowFavoritesUsers extends AsyncTask<Void, Void, List<User>> {

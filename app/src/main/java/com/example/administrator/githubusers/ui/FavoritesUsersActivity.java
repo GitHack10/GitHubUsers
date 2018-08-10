@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 
 import com.example.administrator.githubusers.R;
 import com.example.administrator.githubusers.fragments.FavoritesUsersListFragment;
@@ -23,13 +24,21 @@ public class FavoritesUsersActivity extends AppCompatActivity {
                 replace(R.id.FrameLayout_favoritesUsers_container, new FavoritesUsersListFragment()).commit();
     }
 
-//    @Override
-//    public boolean onOptionsItemSelected(MenuItem item) {
-//        switch (item.getItemId()) {
-//            case android.R.id.home:
-//                onBackPressed();
-//                break;
-//        }
-//        return super.onOptionsItemSelected(item);
-//    }
+    @Override
+    public void onBackPressed() {
+        setResult(RESULT_OK);
+        super.onBackPressed();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        Log.d("onStop", "message onStop()");
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        Log.d("onPause", "message onPause()");
+    }
 }

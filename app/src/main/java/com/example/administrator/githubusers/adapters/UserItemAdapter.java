@@ -25,9 +25,9 @@ public class UserItemAdapter extends RecyclerView.Adapter<UserItemAdapter.ItemVi
     private List<Integer> idFavoritesUsers;
     private OnUsersItemListener onUsersItemListener;
 
-    public UserItemAdapter(List<User> users, List<Integer> idFavoirtesUsers) {
+    public UserItemAdapter(List<User> users, List<Integer> idFavoritesUsers) {
         this.users = users;
-        this.idFavoritesUsers = idFavoirtesUsers;
+        this.idFavoritesUsers = idFavoritesUsers;
     }
 
     @NonNull
@@ -44,10 +44,10 @@ public class UserItemAdapter extends RecyclerView.Adapter<UserItemAdapter.ItemVi
         holder.setData(users.get(position));
     }
 
-//    @Override
-//    public long getItemId(int position) {
-//        users.get(position).getId();
-//    }
+    @Override
+    public long getItemId(int position) {
+        return users.get(position).getId();
+    }
 
     @Override
     public int getItemCount() {
@@ -114,7 +114,6 @@ public class UserItemAdapter extends RecyclerView.Adapter<UserItemAdapter.ItemVi
                         addUserImageView.setImageResource(R.drawable.ic_add_user);
                     }
                 }
-
                 Toast.makeText(itemView.getContext(), itemView.getContext().getResources()
                         .getString(R.string.msg_addUser_in_favorites), Toast.LENGTH_SHORT).show();
             });

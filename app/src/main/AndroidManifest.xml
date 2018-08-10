@@ -19,8 +19,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.InfoUserActivity" />
-        <activity android:name=".ui.FavoritesUsersActivity"></activity>
+        <activity
+            android:name=".ui.InfoUserActivity"
+            android:parentActivityName=".ui.MainActivity"/>
+        <activity
+            android:name=".ui.FavoritesUsersActivity"
+            android:parentActivityName=".ui.MainActivity"/>
     </application>
-
 </manifest>

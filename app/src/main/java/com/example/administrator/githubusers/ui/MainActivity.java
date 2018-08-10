@@ -11,25 +11,39 @@ import com.example.administrator.githubusers.fragments.UsersListFragment;
 
 public class MainActivity extends AppCompatActivity {
 
+    public static final int REQUEST_CODE_FAVORITES = 2;
+    private static final String TAG = "tag";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Toolbar toolbar = findViewById(R.id.toolbar_info);
+        Toolbar toolbar = findViewById(R.id.toolbar_main);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
-        toolbar.setOnMenuItemClickListener((MenuItem item) -> {
-            switch (item.getItemId()) {
-                case R.id.item_main_favoritesUsers:
-                    startActivity(FavoritesUsersActivity.getStartIntent(MainActivity.this));
-                    break;
-            }
-            return true;
-        });
+
+        showUsersListFragment();
 
         getSupportFragmentManager().beginTransaction().
-                replace(R.id.FrameLayout_main_container, new UsersListFragment()).commit();
+                replace(R.id.FrameLayout_main_container, new UsersListFragment(), TAG).commit();
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.item_main_favoritesUsers:
+                getSupportFragmentManager().findFragmentByTag(TAG).startActivityForResult(FavoritesUsersActivity
+                        .getStartIntent(MainActivity.this), REQUEST_CODE_FAVORITES);
+                break;
+        }
+        return true;
+    }
+
+    private void showUsersListFragment() {
+        UsersListFragment usersListFragment = new UsersListFragment();
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.FrameLayout_main_container, usersListFragment, TAG).commit();
     }
 
     @Override
