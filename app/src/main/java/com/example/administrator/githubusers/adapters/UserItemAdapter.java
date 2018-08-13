@@ -42,6 +42,7 @@ public class UserItemAdapter extends RecyclerView.Adapter<UserItemAdapter.ItemVi
     @Override
     public void onBindViewHolder(@NonNull ItemViewHolder holder, int position) {
         holder.setData(users.get(position));
+        String s = "";
     }
 
     @Override
